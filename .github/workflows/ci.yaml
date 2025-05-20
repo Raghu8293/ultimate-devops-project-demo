@@ -22,7 +22,7 @@ jobs:
               run: |
                 cd src/product-catalog
                 go mod download
-                go build -0 product-catalog-service main.go
+                go build -o product-catalog-service main.go
 
             - name: Run unit test
               run: |
@@ -62,7 +62,7 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                 context: src/product-catalog
-                file: Dockerfile
+                file: src/product-catalog/Dockerfile
                 push: true
                 tags: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{ github.run_id }}
 
@@ -85,8 +85,8 @@ jobs:
               run: |
                  git config --global user.name "raghudev"
                  git config --global user.email "raghudev.pulligilla@gmail.com"
-                 git add kubernetes/prodcutcatalog/deploy.yaml
+                 git add kubernetes/productcatalog/deploy.yaml
                  git commit -m "[CI]: updated image"
-                 git push 
+                 git push origin HEAD:main -f
                  
                     
